@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import "./Main.css";
 import { assests } from "../../../assets/assests";
 import { Context } from "../../../Context/Context";
+import DOMPurify from 'dompurify'; // Use a library to sanitize HTML
 
 function Main() {
   const {
@@ -29,6 +30,7 @@ function Main() {
       handleSend();
     }
   };
+  const safeHTML = DOMPurify.sanitize(resultData);
 
   return (
     <div className="main">
@@ -82,7 +84,7 @@ function Main() {
                   <hr />
                 </div>
               ) : (
-                <p dangerouslySetInnerHTML={{ __html: resultData }} />
+                <p dangerouslySetInnerHTML={{ __html: safeHTML }} />
               )}
             </div>
           </div>
